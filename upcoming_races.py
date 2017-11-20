@@ -16,11 +16,12 @@ def lambda_handler(zipcode, dist_code):
     logging.info(address)
     csvfile = open("upcoming_races.csv", "w")
     writer = csv.writer(csvfile, delimiter=',')
-    headerrow = 'EventDate', 'EventName', 'City', 'Distances'
+    headerrow = 'EventDate', 'EventName', 'City', 'Distances', 'Event ID', 'Event Date ID'
     writer.writerow(headerrow)
     for i in response:
-        row = i["EventDate"], i["EventName"], i["City"], i["Distances"]
+        row = i["EventDate"], i["EventName"], i["City"], i["Distances"], i["EventId"], i["EventDateId"]
         writer.writerow(row)
+        # print(i)
     return response
 
 

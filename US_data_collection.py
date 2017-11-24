@@ -6,7 +6,7 @@ import csv
 import pandas as pd
 
 # Entrants URL for a race you're interested in
-race = 'https://ultrasignup.com/entrants_event.aspx?did=42474'
+race = 'https://ultrasignup.com/entrants_event.aspx?did=51243'
 csvfile = open("all_entrants.csv", "w")
 writer = csv.writer(csvfile, delimiter=',')
 headerrow = 'Rank', 'Age Rank', 'Projected Time', 'Age Group', 'First Name', 'Last Name', 'City', 'State'

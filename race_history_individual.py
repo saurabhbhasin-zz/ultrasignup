@@ -14,7 +14,7 @@ def get_athlete_races(fname, lname):
     file_name = fname + '_' + lname + '.csv'
     results = requests.get(url)
     athlete_json = results.json()
-    with open(file_name, 'w') as target:
+    with open(file_name, 'w', encoding='utf-8') as target:
         writer = csv.writer(target, delimiter=",")
         writer.writerow(["Event", "Event Date", "Finish Time", "Place",
                         "Gender Place", "Rank"])

@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO, filename='races.log')
 
 def lambda_handler(zipcode, dist_code):
     url = "https://ultrasignup.com/service/events.svc/closestevents?past=0&lat=%s&lng=%s&mi=300&mo=12&on&dist=%s" % (lat, lng, dist_code)
-    # logging.info(url)
+    logging.info(url)
     r = requests.get(url)
     response = r.json()
     number_of_races = "found %s races" % len(response)

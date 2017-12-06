@@ -24,13 +24,14 @@ def doSearch(searchstring):
         names_list.append(i['eventName'])
         logging.info(row2)
         result_list.append(row)
+    print(names_list)
     return result_list, names_list
 
 
 def getResults():
     RESULTS_BASEURL = 'https://ultrasignup.com/service/events.svc/results/'
     URL_SUFFIX = '/json'
-    result_list = doSearch("rock")[0]
+    result_list = doSearch("Marin")[0]
     # names_list = doSearch("Pinhoti")[1]
     # print(names_list)
     for eachid in result_list:

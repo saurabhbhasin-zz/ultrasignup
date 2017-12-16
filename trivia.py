@@ -1,4 +1,3 @@
-# Ask the user for the race they are interested in
 # Get the race's EventID
 # Then get the DateID for that EventID
 # Then, look up the DistanceID (if the race has multiple distances)
@@ -8,8 +7,8 @@
 import requests
 import logging
 
-logging.basicConfig(level=logging.INFO, filename='race_trivia.log', format='%(asctime)s:%(levelname)s:%(message)s')
-# DID = '41765'
+logging.basicConfig(level=logging.INFO, filename='race_trivia.log',
+                    format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 def doSearch(searchstring):
@@ -17,31 +16,26 @@ def doSearch(searchstring):
     r = requests.get(SEARCH_URL)
     response = r.json()
     result_list = []
-    names_list = []
     for i in response:
         row = i["eventDateId"]
-        row2 = i["eventName"], i["city"], i["eventDate"], i["eventDateId"]
-        names_list.append(i['eventName'])
-        logging.info(row2)
         result_list.append(row)
-    print(names_list)
-    return result_list, names_list
+        row2 = i["eventName"], i["city"], i["eventDate"], i["eventDateId"]
+        logging.info(row2)
+    return result_list
 
 
 def getResults():
     RESULTS_BASEURL = 'https://ultrasignup.com/service/events.svc/results/'
     URL_SUFFIX = '/json'
-    result_list = doSearch("Marin")[0]
-    # names_list = doSearch("Pinhoti")[1]
-    # print(names_list)
+    result_list = doSearch("Whistle")
     for eachid in result_list:
         url = RESULTS_BASEURL+str(eachid)+URL_SUFFIX
         r = requests.get(url)
         if r.status_code == 200:
             if r.headers['Content-Length'] == '2':
-                print("No Results. Skipping")
+                print("No Results for {}. Skipping".format(eachid))
             else:
-                print("-----Getting Results. Race({})-----").format(url)
+                print("-----Found results for race ({})-----").format(url)
                 results = r.json()
                 male_athletes = []
                 female_athletes = []
@@ -59,3 +53,14 @@ def getResults():
 
 
 getResults()
+
+
+# def geteventName(searchstring):
+#     SEARCH_URL = "https://ultrasignup.com/service/events.svc/GetFeaturedEventsSearch/p=0/q=%s" % (searchstring)
+#     r = requests.get(SEARCH_URL)
+#     response = r.json()
+#     names_list = []
+#     for i in response:
+#         names_list.append(i['eventName'])
+#     print(names_list)
+#     return names_list
